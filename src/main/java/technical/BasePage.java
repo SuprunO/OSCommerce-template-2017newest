@@ -1,15 +1,17 @@
 package technical;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 
 /**
@@ -26,6 +28,7 @@ public class BasePage {
         this.driver = driver;
     }
 
+    private static final Logger LOGGER = Logger.getLogger(BasePage.class);
 
 
     public void waitByLinkText(String ByLinkText) {
@@ -62,7 +65,14 @@ public class BasePage {
 //    public WebElement findPriceByProductName(String name) {
 //        return findProductByText(name).findElement(By.xpath("../../p[2]"));
 //    }
-
+    /**
+     * Opens Home Page entering url into the address field.
+     */
+    public void open(String url) {
+        LOGGER.info("Opening URL: " + url);
+        driver.get(url);
+        driver.manage().window().maximize();
+    }
 
     /**
      * Checks if specified an element is present on the current the page.
@@ -116,6 +126,57 @@ public class BasePage {
         }
     }
 
+    /**
+     * Models a condition that might reasonably be expected to eventually evaluate to something that is neither null nor false.
+     *
+     * @param sec the length of time to sleep in milliseconds
+     * @param locator "By" class locator to search input field.
+     */
+
+
+    public void waitElementToBeClickable(int sec, By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, sec);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    /**
+     * Method that finds input field by locator with class "By" and fills in specified value.
+     *
+     * @param locator
+     *        "By" class locator to search Dropdown field.
+     *
+     * @param value
+     *        String value that filles into the input.
+     *
+     * @param elementName
+     *        String descriptive name of the element(just for pretty logs).
+     */
+    public void selectValueInDropDown(By locator, String value, String elementName) {
+        assertPresenceAndDisplay(locator, elementName);
+        LOGGER.info("Selecting: \"" + value + "\" in the : " + elementName);
+        Select dropDown = new Select(driver.findElement(locator));
+        dropDown.selectByVisibleText(value);
+    }
+
+
+    /**
+     * Method that finds input field by locator with class "By" and fills in specified value.
+     *
+     * @param locator
+     *        "By" class locator to search input field.
+     *
+     * @param value
+     *        String value that fills into the input.
+     *
+     * @param elementName
+     *        String descriptive name of the element(just for pretty logs).
+     */
+    public void fillInInputField(By locator, String value, String elementName) {
+        assertPresenceAndDisplay(locator, elementName);
+        LOGGER.info("Typing in: \"" + value + "\" into the : " + elementName);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(value);
+    }
 }
 
 

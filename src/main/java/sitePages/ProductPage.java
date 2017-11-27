@@ -11,6 +11,7 @@ import technical.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by alex on 21.02.2017.
@@ -24,13 +25,14 @@ public class ProductPage extends BasePage {
 
     }
 
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
+
 
     public static final By SELECT_COLOR = By.cssSelector("#product>div:nth-of-type(1)>select");
     public static final By SELECT_COLOR_VALUE = By.cssSelector("#product>div:nth-of-type(1)>select>option:last-child");
     public static final By SELECT_SIZE = By.cssSelector("#product>div:nth-of-type(2)>select");
     public static final By SELECT_SIZE_VALUE = By.cssSelector("#product>div:nth-of-type(2)>select>option:last-child");
-    public static final By ADDTOCARTBUTTON1 = By.cssSelector("#button-cart");
-    public static final By ADDTOCARTBUTTON2 = By.cssSelector("#tdb3");
+    public static final By ADDTOCARTBUTTON = By.cssSelector(".buttonAction>[type=submit]");
     public static final By CHOOSEQTYFIELD  = By.cssSelector("#input-quantity");
     public static final By Link_to_shopping_cart = By.cssSelector(".alert-success>a:last-of-type");
     public static final By Link_to_shopping_cart2 = By.cssSelector(".popup-button>#tdb2");
@@ -48,6 +50,7 @@ public class ProductPage extends BasePage {
 
     @Step
     public void chooseColor() {
+        LOGGER.info("Choose color");
         Select select = new Select(driver.findElement(SELECT_COLOR));
         select.selectByIndex(1);
     }
@@ -56,6 +59,7 @@ public class ProductPage extends BasePage {
 
     @Step
     public void chooseSize() {
+        LOGGER.info("Choose size");
         Select select = new Select(driver.findElement(SELECT_SIZE));
         select.selectByIndex(3);
     }
@@ -63,6 +67,7 @@ public class ProductPage extends BasePage {
 
     @Step
     public void inputProductsQuantity() {
+        LOGGER.info("Input quantity of products");
         driver.findElement(CHOOSEQTYFIELD).clear();
         driver.findElement(CHOOSEQTYFIELD).sendKeys("1");
     }

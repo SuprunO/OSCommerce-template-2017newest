@@ -19,8 +19,9 @@ public class User {
 
     public String FirstName = "Rob";
     public String Lastname = "Kawalski";
+    public String DOB = "05/21/1970";
     public String EMail =   getSaltString()+"@gmail.com";
-    public String Telephone = "+(44)567-56-65";
+    public String Telephone = "+44567-56-65";
     public String Address = "Brookyn st, 45";
     public String City = "New york";
     public String PostCode = "03125";
@@ -28,6 +29,7 @@ public class User {
 
     //Credentials for paypage
     public String Country = "United States";
+    public String State = "Alabama";
     public String IssuingBank = "CityBank";
     public String CardNumber = "4444333322221111";
     public String ExpirationMonth = "02";
