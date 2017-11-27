@@ -10,5 +10,5 @@ public class OrderConfirmation extends BasePage {
     }
 
     public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON =By.cssSelector("#tdb5");
-
+    public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON2 =By.cssSelector("#tdb4");
 }

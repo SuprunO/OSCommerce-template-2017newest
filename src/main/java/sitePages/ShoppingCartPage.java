@@ -14,4 +14,5 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public static final By CART_CHECKOUT_BUTTON = By.cssSelector("#tdb6");
+    public static final By CART_CHECKOUT_BUTTON2 = By.cssSelector("#tdb5");
 }

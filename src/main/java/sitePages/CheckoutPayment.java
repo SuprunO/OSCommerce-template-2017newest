@@ -14,7 +14,7 @@ public class CheckoutPayment extends BasePage {
     public static final By DELIVERY_RADIOBUTTON = By.cssSelector("#cbpay");
 
     public static  final By CHECKOUT_PAYMENT_CONTINUE_BUTTON =By.cssSelector("#tdb6");
-
+    public static  final By CHECKOUT_PAYMENT_CONTINUE_BUTTON2 =By.cssSelector("#tdb5");
 
 
     public void selectRadiobuttons(){

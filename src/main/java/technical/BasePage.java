@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sitePages.CheckoutPayment;
+import sitePages.OrderConfirmation;
 
 import java.util.List;
 
@@ -65,6 +67,7 @@ public class BasePage {
 //    public WebElement findPriceByProductName(String name) {
 //        return findProductByText(name).findElement(By.xpath("../../p[2]"));
 //    }
+
     /**
      * Opens Home Page entering url into the address field.
      */
@@ -129,7 +132,7 @@ public class BasePage {
     /**
      * Models a condition that might reasonably be expected to eventually evaluate to something that is neither null nor false.
      *
-     * @param sec the length of time to sleep in milliseconds
+     * @param sec     the length of time to sleep in milliseconds
      * @param locator "By" class locator to search input field.
      */
 
@@ -142,14 +145,9 @@ public class BasePage {
     /**
      * Method that finds input field by locator with class "By" and fills in specified value.
      *
-     * @param locator
-     *        "By" class locator to search Dropdown field.
-     *
-     * @param value
-     *        String value that filles into the input.
-     *
-     * @param elementName
-     *        String descriptive name of the element(just for pretty logs).
+     * @param locator     "By" class locator to search Dropdown field.
+     * @param value       String value that filles into the input.
+     * @param elementName String descriptive name of the element(just for pretty logs).
      */
     public void selectValueInDropDown(By locator, String value, String elementName) {
         assertPresenceAndDisplay(locator, elementName);
@@ -162,20 +160,22 @@ public class BasePage {
     /**
      * Method that finds input field by locator with class "By" and fills in specified value.
      *
-     * @param locator
-     *        "By" class locator to search input field.
-     *
-     * @param value
-     *        String value that fills into the input.
-     *
-     * @param elementName
-     *        String descriptive name of the element(just for pretty logs).
+     * @param locator     "By" class locator to search input field.
+     * @param value       String value that fills into the input.
+     * @param elementName String descriptive name of the element(just for pretty logs).
      */
     public void fillInInputField(By locator, String value, String elementName) {
         assertPresenceAndDisplay(locator, elementName);
         LOGGER.info("Typing in: \"" + value + "\" into the : " + elementName);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(value);
+    }
+
+
+
+    public void selectFromDropdownV2(By locator, String text) {
+        Select dropdown = new Select(driver.findElement(locator));
+        dropdown.selectByVisibleText(text);
     }
 }
 

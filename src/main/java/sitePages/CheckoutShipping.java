@@ -10,5 +10,5 @@ public class CheckoutShipping extends BasePage{
     }
 
     public static final By CHECKOUT_SHIPPING_CONTINUE_BUTTON = By.cssSelector("#tdb6");
-
+    public static final By CHECKOUT_SHIPPING_CONTINUE_BUTTON2 = By.cssSelector("#tdb5");
 }

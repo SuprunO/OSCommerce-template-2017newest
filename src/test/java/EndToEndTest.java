@@ -69,7 +69,7 @@ public class EndToEndTest {
     public Object[][] urlDataProvider() {
         return new Object[][]{
                 {"http:/bestwatchesweb.com"},
-                {"http://weddingstuffhub.com"},
+                 {"http://weddingstuffhub.com"},
                 // {"http:/bestaccessoriesnow.com"},
 
         };
@@ -114,9 +114,11 @@ public class EndToEndTest {
         } else {
             homePage.clickOnElement(ProductPage.Link_to_shopping_cart2, "Checkout Cart icon Site 2");
         }
-
-        shoppingCartPage.clickOnElement(ShoppingCartPage.CART_CHECKOUT_BUTTON, "CART_CHECKOUT_BUTTON1");
-
+        if (shoppingCartPage.isElementPresent(ShoppingCartPage.CART_CHECKOUT_BUTTON) == true) {
+            shoppingCartPage.clickOnElement(ShoppingCartPage.CART_CHECKOUT_BUTTON, "CART_CHECKOUT_BUTTON");
+        } else {
+            shoppingCartPage.clickOnElement(ShoppingCartPage.CART_CHECKOUT_BUTTON2, "CART_CHECKOUT_BUTTON2");
+        }
         loginPage.waitElementToBeClickable(25, CheckoutPage.LOGIN_PAGE_CONTINUE_BUTTON);
         loginPage.clickOnElement(CheckoutPage.LOGIN_PAGE_CONTINUE_BUTTON, "CONTINUE_BUTTON");
 
@@ -124,20 +126,41 @@ public class EndToEndTest {
         checkoutPage.threadSleep(5000);
         checkoutPage.clickOnElement(CheckoutPage.MALE_RADIOBUTTON, "MALE_RADIOBUTTON");
         checkoutPage.inputCredentials(userData);
-        checkoutPage.clickOnElement(CheckoutPage.SHIPPING_PAGE_CONTINUE_BUTTON, "SHIPPING_PAGE_CONTINUE_BUTTON");
-        createAccountSuccessPage.clickOnElement(CreateAccountSuccessPage.SUCCESS_PAGE_CONTINUE_BUTTON,"SUCCESS PAGE_CONTINUE_BUTTON");
-        checkoutShipping.clickOnElement(CheckoutShipping.CHECKOUT_SHIPPING_CONTINUE_BUTTON,"CHECKOUT_SHIPPING_CONTINUE_BUTTON");
-        checkoutPayment.selectRadiobuttons();
-        checkoutPayment.clickOnElement(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON,"CHECKOUT_PAYMENT_CONTINUE_BUTTON");
-        orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON,"ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
+        if (checkoutPage.isElementPresent(CheckoutPage.SHIPPING_PAGE_CONTINUE_BUTTON) == true) {
+            checkoutPage.clickOnElement(CheckoutPage.SHIPPING_PAGE_CONTINUE_BUTTON, "SHIPPING_PAGE_CONTINUE_BUTTON");
+        } else {
+            checkoutPage.clickOnElement(CheckoutPage.SHIPPING_PAGE_CONTINUE_BUTTON2, "SHIPPING_PAGE_CONTINUE_BUTTON2");
+        }
 
+        if (createAccountSuccessPage.isElementPresent(CreateAccountSuccessPage.SUCCESS_PAGE_CONTINUE_BUTTON) == true) {
+            createAccountSuccessPage.clickOnElement(CreateAccountSuccessPage.SUCCESS_PAGE_CONTINUE_BUTTON, "SUCCESS PAGE_CONTINUE_BUTTON");
+        } else {
+            createAccountSuccessPage.clickOnElement(CreateAccountSuccessPage.SUCCESS_PAGE_CONTINUE_BUTTON2, "SUCCESS PAGE_CONTINUE_BUTTON");
+        }
+        if (checkoutShipping.isElementPresent(CheckoutShipping.CHECKOUT_SHIPPING_CONTINUE_BUTTON) == true) {
+            checkoutShipping.clickOnElement(CheckoutShipping.CHECKOUT_SHIPPING_CONTINUE_BUTTON, "CHECKOUT_SHIPPING_CONTINUE_BUTTON");
+        } else {
+            checkoutShipping.clickOnElement(CheckoutShipping.CHECKOUT_SHIPPING_CONTINUE_BUTTON2, "CHECKOUT_SHIPPING_CONTINUE_BUTTON");
+        }
+        checkoutPayment.selectRadiobuttons();
+        if (checkoutPayment.isElementPresent(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON) == true) {
+            checkoutPayment.clickOnElement(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON, "CHECKOUT_PAYMENT_CONTINUE_BUTTON");
+        }else{
+            checkoutPayment.clickOnElement(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON2, "CHECKOUT_PAYMENT_CONTINUE_BUTTON");
+        }
+
+        if( orderConfirmation.isElementPresent(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON)==true)
+        orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON, "ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
+else {
+            orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON2, "ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
+        }
         payPage.enterClientCredentialsPaypage(userData);
-        payPage.clickOnElement(PayPage.SUBMIT_TRANSACTION_BUTTON,"SUBMIT_TRANSACTION_BUTTON");
-        Assert.assertEquals(driver.findElement(CheckoutPage.TRANSACTION_SUCCESS_TEXT).getText(),"Transaction Success");
+        payPage.clickOnElement(PayPage.SUBMIT_TRANSACTION_BUTTON, "SUBMIT_TRANSACTION_BUTTON");
+        Assert.assertEquals(driver.findElement(CheckoutPage.TRANSACTION_SUCCESS_TEXT).getText(), "Transaction Success");
     }
 
 
-    @AfterClass
+    //  @AfterClass
 
     public void cleanUp() {
         try {

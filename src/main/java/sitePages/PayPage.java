@@ -43,13 +43,17 @@ public class PayPage extends BasePage {
         fillInInputField(ADDRESS, user.Address, "ADDRESS");
         fillInInputField(CITY, user.City, "CITY");
         fillInInputField(ZIP, user.PostCode, "ZIP");
-        selectValueInDropDown(COUNTRY, user.Country, "COUNTRY");
+        Select dropdown = new Select(driver.findElement(COUNTRY));
+        dropdown.selectByVisibleText(user.Country);
         fillInInputField(PHONE, user.Telephone, "PHONE");
         fillInInputField(EMAIL, user.EMail, "EMAIL");
         fillInInputField(ISSUING_BANK, user.IssuingBank, "ISSUING BANK");
         fillInInputField(CARD_NUMBER, user.CardNumber, "CARD_NUMBER");
-        selectValueInDropDown(EXPIRATION_MONTH, user.ExpirationMonth, "EXPIRATION_MONTH");
-        selectValueInDropDown(EXPIRATION_YEAR, user.ExpirationYear, "EXPIRATION_YEAR");
+        selectFromDropdownV2(COUNTRY,user.Country);
+        Select dropdown1 = new Select(driver.findElement(COUNTRY));
+        dropdown1.selectByVisibleText(user.Country);
+        selectFromDropdownV2(EXPIRATION_MONTH, user.ExpirationMonth);
+        selectFromDropdownV2(EXPIRATION_YEAR, user.ExpirationYear);
         fillInInputField(CVV, user.CVV2, "CVV");
     }
 }

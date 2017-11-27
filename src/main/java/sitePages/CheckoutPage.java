@@ -20,6 +20,7 @@ public class CheckoutPage extends BasePage {
     //Locators
     public static final By LOGIN_PAGE_CONTINUE_BUTTON = By.cssSelector(".box>div:last-child>a");
     public static final By SHIPPING_PAGE_CONTINUE_BUTTON = By.cssSelector("#tdb5");
+    public static final By SHIPPING_PAGE_CONTINUE_BUTTON2 = By.cssSelector("#tdb4");
     public static final By FIRST_NAME = By.cssSelector("[name=firstname]");
     public static final By LAST_NAME = By.cssSelector("[name=lastname]");
     public static final By DOB  = By.cssSelector("[name=dob]");
@@ -45,7 +46,15 @@ public class CheckoutPage extends BasePage {
         fillInInputField(ADDRESS,user.Address,"ADDRESS");
         fillInInputField(POSTCODE,user.PostCode,"POSTCODE");
         fillInInputField(CITY,user.City,"CITY");
-        selectValueInDropDown(COUNTRY,user.Country,"COUNTRY");
+  threadSleep(5000);
+        Select dropdown = new Select(driver.findElement(COUNTRY));
+        dropdown.selectByVisibleText(user.Country);
+//        if(isElementPresent(COUNTRY)==true) {
+//            fillInInputField(COUNTRY, user.Country, "COUNTRY");
+//        }
+//        else{
+
+//        }
         fillInInputField(STATE,user.State,"STATE");
         fillInInputField(PHONE,user.Telephone,"Telephone");
         fillInInputField(PASSWORD,user.Password,"Password");
