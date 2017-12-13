@@ -1,6 +1,6 @@
 package technical;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,12 +8,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sitePages.CheckoutPayment;
-import sitePages.OrderConfirmation;
 
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
 
 /**
@@ -30,7 +28,7 @@ public class BasePage {
         this.driver = driver;
     }
 
-    private static final Logger LOGGER = Logger.getLogger(BasePage.class);
+   // private static final Logger LOGGER = Logger.getLogger(BasePage.class);
 
 
     public void waitByLinkText(String ByLinkText) {
@@ -72,7 +70,7 @@ public class BasePage {
      * Opens Home Page entering url into the address field.
      */
     public void open(String url) {
-        LOGGER.info("Opening URL: " + url);
+   //     LOGGER.info("Opening URL: " + url);
         driver.get(url);
         driver.manage().window().maximize();
     }
@@ -151,7 +149,7 @@ public class BasePage {
      */
     public void selectValueInDropDown(By locator, String value, String elementName) {
         assertPresenceAndDisplay(locator, elementName);
-        LOGGER.info("Selecting: \"" + value + "\" in the : " + elementName);
+      //  LOGGER.info("Selecting: \"" + value + "\" in the : " + elementName);
         Select dropDown = new Select(driver.findElement(locator));
         dropDown.selectByVisibleText(value);
     }
@@ -166,11 +164,10 @@ public class BasePage {
      */
     public void fillInInputField(By locator, String value, String elementName) {
         assertPresenceAndDisplay(locator, elementName);
-        LOGGER.info("Typing in: \"" + value + "\" into the : " + elementName);
+    //    LOGGER.info("Typing in: \"" + value + "\" into the : " + elementName);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(value);
     }
-
 
 
     public void selectFromDropdownV2(By locator, String text) {

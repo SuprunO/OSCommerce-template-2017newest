@@ -1,23 +1,16 @@
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import constantElements.CartPopUp;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Severity;
-import ru.yandex.qatools.allure.annotations.Title;
-import ru.yandex.qatools.allure.model.SeverityLevel;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import sitePages.*;
 import technical.User;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.openqa.selenium.By.cssSelector;
-import static technical.BasePage.SiteURL;
+import java.io.File;
 
 /**
  * Created by alex on 21.02.2017.
@@ -38,6 +31,8 @@ public class EndToEndTest {
     CategoriesPage categoriesPage;
     CartPopUp cartPopUp;
     TransactionFinalPage transactionFinalPage;
+    ExtentReports extentReport;
+    ExtentTest extentTest;
 
 
     @BeforeTest
@@ -47,6 +42,8 @@ public class EndToEndTest {
         ChromeOptions options = new ChromeOptions();
         options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
         driver = new ChromeDriver(options);
+        extentReport = new ExtentReports(System.getProperty("user.dir") + "/test-output/Report.html", true);
+        extentReport.loadConfig(new File(System.getProperty("user.dir") + "/src/main/resources/extent-config.xml"));
         userData = new User();
         cartPopUp = new CartPopUp(driver);
         shoppingCartPage = new ShoppingCartPage(driver);
@@ -61,15 +58,13 @@ public class EndToEndTest {
         payPage = new PayPage(driver);
         categoriesPage = new CategoriesPage(driver);
         transactionFinalPage = new TransactionFinalPage(driver);
-
     }
-
 
     @DataProvider(name = "url-data-provider")
     public Object[][] urlDataProvider() {
         return new Object[][]{
                 {"http:/bestwatchesweb.com"},
-                 {"http://weddingstuffhub.com"},
+              //  {"http://weddingstuffhub.com"},
                 // {"http:/bestaccessoriesnow.com"},
 
         };
@@ -77,6 +72,7 @@ public class EndToEndTest {
 
     @Test(dataProvider = "url-data-provider")
     public void endToEndTest(String url) {
+        extentTest = extentReport.startTest("endToEndTest");
         homePage.open(url);
         homePage.threadSleep(10000);
 
@@ -145,13 +141,13 @@ public class EndToEndTest {
         checkoutPayment.selectRadiobuttons();
         if (checkoutPayment.isElementPresent(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON) == true) {
             checkoutPayment.clickOnElement(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON, "CHECKOUT_PAYMENT_CONTINUE_BUTTON");
-        }else{
+        } else {
             checkoutPayment.clickOnElement(CheckoutPayment.CHECKOUT_PAYMENT_CONTINUE_BUTTON2, "CHECKOUT_PAYMENT_CONTINUE_BUTTON");
         }
 
-        if( orderConfirmation.isElementPresent(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON)==true)
-        orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON, "ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
-else {
+        if (orderConfirmation.isElementPresent(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON) == true)
+            orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON, "ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
+        else {
             orderConfirmation.clickOnElement(OrderConfirmation.ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON2, "ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON");
         }
         payPage.enterClientCredentialsPaypage(userData);
@@ -159,10 +155,23 @@ else {
         Assert.assertEquals(driver.findElement(CheckoutPage.TRANSACTION_SUCCESS_TEXT).getText(), "Transaction Success");
     }
 
+    @AfterMethod
+ public void getResult(ITestResult result) {
+        if (result.getStatus()==ITestResult.FAILURE){
+            extentTest.log(LogStatus.FAIL,result.getThrowable());
+            if (result.getStatus() == ITestResult.SKIP) {
+                extentTest.log(LogStatus.SKIP, "Test skipped " + result.getThrowable());
+            } else {
+                extentTest.log(LogStatus.PASS, "Test passed");
+            }
+            extentReport.endTest(extentTest);
+        }
 
-    //  @AfterClass
+    }
+    @AfterClass
 
     public void cleanUp() {
+        extentReport.flush();
         try {
             driver.close();
             driver.quit();

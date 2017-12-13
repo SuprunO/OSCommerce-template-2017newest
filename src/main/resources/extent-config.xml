@@ -1,11 +1,27 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <extentreports>
     <configuration>
-        <theme>standard</theme>
+        <!-- report theme -->
+        <!-- standard, dark -->
+        <theme>dark</theme>
+
+        <!-- document encoding -->
+        <!-- defaults to UTF-8 -->
         <encoding>UTF-8</encoding>
 
+        <!-- protocol for script and stylesheets -->
         <!-- defaults to https -->
-        <protocol>http</protocol>
+        <protocol>https</protocol>
+
+        <!-- title of the document -->
+        <documentTitle>AUTOMATON TESTING</documentTitle>
+
+        <!-- report name - displayed at top-nav -->
+        <reportName>Automation Report</reportName>
+
+        <!-- report headline - displayed at top-nav, after reportHeadline -->
+        <reportHeadline>OS Commerce QA Script</reportHeadline>
 
         <!-- global date format override -->
         <!-- defaults to yyyy-MM-dd -->
@@ -19,7 +35,7 @@
         <scripts>
             <![CDATA[
         $(document).ready(function() {
-          
+
         });
       ]]>
         </scripts>
@@ -27,39 +43,7 @@
         <!-- custom styles -->
         <styles>
             <![CDATA[
-            .test-step{
-                color: blue;
-                font-weight: bold;
-            }
-            .node.pass {
-                background: #dfd;
-            }
-            .node.fail {
-                background: #fee8e9;
-            }
-            .node.skip {
-                background: #cbdefb;
-            }
-            .node.warning {
-                background: #fffbdd;
-            }
-            .node.fatal {
-                background: rgba(193, 66, 66, .7);
-            }
-            .node.error {
-                background: #fbdfd1;
-            }
-            .collapsible-header {
-                background-color: transparent;
-            }
-            .node-steps {
-                background: whitesmoke;
-                border-radius: 5px;
-            }
-            div.node-steps>table.bordered>tbody>tr:last-of-type,
-            div.node-steps>table.bordered>tbody>tr:last-of-type > td {
-                border: none !important; /* Just because of original important presence */
-            }
+
       ]]>
         </styles>
     </configuration>

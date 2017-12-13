@@ -1,7 +1,7 @@
 package sitePages;
 
 import constantElements.Layout;
-import org.apache.log4j.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import technical.BasePage;
@@ -14,7 +14,7 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    private static final Logger LOGGER = Logger.getLogger(HomePage.class);
+//    private static final Logger LOGGER = Logger.getLogger(HomePage.class);
 
     public Layout getLayout() {
         return new Layout(driver);

@@ -6,12 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import ru.yandex.qatools.allure.annotations.Step;
 import technical.BasePage;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by alex on 21.02.2017.
@@ -25,7 +22,7 @@ public class ProductPage extends BasePage {
 
     }
 
-    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
+ //   private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
 
 
     public static final By SELECT_COLOR = By.cssSelector("#product>div:nth-of-type(1)>select");
@@ -47,34 +44,23 @@ public class ProductPage extends BasePage {
        return driver.findElement(By.cssSelector("#content>h1"));
     }
 
-
-    @Step
     public void chooseColor() {
-        LOGGER.info("Choose color");
+    //    LOGGER.info("Choose color");
         Select select = new Select(driver.findElement(SELECT_COLOR));
         select.selectByIndex(1);
     }
 
-
-
-    @Step
     public void chooseSize() {
-        LOGGER.info("Choose size");
+  //      LOGGER.info("Choose size");
         Select select = new Select(driver.findElement(SELECT_SIZE));
         select.selectByIndex(3);
     }
 
-
-    @Step
     public void inputProductsQuantity() {
-        LOGGER.info("Input quantity of products");
+     //   LOGGER.info("Input quantity of products");
         driver.findElement(CHOOSEQTYFIELD).clear();
         driver.findElement(CHOOSEQTYFIELD).sendKeys("1");
     }
-
-
-
-
 
     public String sizeDropdownExpectedOptions() {
         ArrayList<String> size = new ArrayList<String>();

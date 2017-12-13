@@ -3,7 +3,6 @@ package constantElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.yandex.qatools.allure.annotations.Step;
 import sitePages.CheckoutPage;
 import technical.BasePage;
 
@@ -21,13 +20,10 @@ public class CartPopUp extends BasePage {
 
     public static final By CART_CHECKOUT_BUTTON2 = By.cssSelector(".header-shopping-cart>div>.cart-button>a");
 
-
-    @Step
     public CheckoutPage getCartCheckoutButton() {
 
         return new CheckoutPage(driver);
     }
-
 
     public WebElement getProductNameLocator() {
         return driver.findElement(By.cssSelector(".table.table-striped>tbody>tr>td:nth-of-type(2)>a"));
