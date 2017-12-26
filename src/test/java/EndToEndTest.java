@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import sitePages.*;
+import technical.ExtentManager;
 import technical.User;
 
 import java.io.File;
@@ -15,7 +16,7 @@ import java.io.File;
 /**
  * Created by alex on 21.02.2017.
  */
-public class EndToEndTest {
+public class EndToEndTest extends ExtentManager{
     ChromeDriver driver;
     ProductPage productPage;
     User userData;
@@ -31,12 +32,13 @@ public class EndToEndTest {
     CategoriesPage categoriesPage;
     CartPopUp cartPopUp;
     TransactionFinalPage transactionFinalPage;
-    ExtentReports extentReport;
-    ExtentTest extentTest;
+    public ExtentReports extentReport;
+    public ExtentTest extentTest;
 
 
     @BeforeTest
     public void StartUp() {
+        extentReports = ExtentManager.getReporter(ExtentManager.filePath);
         System.setProperty("webdriver.chrome.driver", "C://selenium/chromedriver.exe");
         // System.setProperty("webdriver.gecko.driver", "C://gecko/geckodriver.exe");
         ChromeOptions options = new ChromeOptions();
@@ -63,10 +65,18 @@ public class EndToEndTest {
     @DataProvider(name = "url-data-provider")
     public Object[][] urlDataProvider() {
         return new Object[][]{
-                {"http:/bestwatchesweb.com"},
-              //  {"http://weddingstuffhub.com"},
-                // {"http:/bestaccessoriesnow.com"},
-
+                {"http://bestwatchesweb.com"},
+                {"http://weddingstuffhub.com"},
+               //  {"yourgiftshome.com"},
+                // {"http://coolfootwearmart.com"},
+                // {"http://adgetsstar.com"},
+                // {"http://yourgreatbag.com"},
+               //  {"http://weddingstorelab.com"},
+                // {"http://yoursupremegifts.com"},
+                // {"http://bestaccessoriesnow.com"},
+                // {"http://gadgetsstar.com"},
+                // {"http://toylandhub.com"},
+                // {"http://sunglassesfun.com"},
         };
     }
 
@@ -165,13 +175,14 @@ public class EndToEndTest {
                 extentTest.log(LogStatus.PASS, "Test passed");
             }
             extentReport.endTest(extentTest);
+            extentReport.flush();
         }
 
     }
     @AfterClass
 
     public void cleanUp() {
-        extentReport.flush();
+
         try {
             driver.close();
             driver.quit();

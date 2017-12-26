@@ -1,6 +1,5 @@
 package technical;
 
-//import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,7 +27,7 @@ public class BasePage {
         this.driver = driver;
     }
 
-   // private static final Logger LOGGER = Logger.getLogger(BasePage.class);
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BasePage.class);
 
 
     public void waitByLinkText(String ByLinkText) {
@@ -70,7 +69,7 @@ public class BasePage {
      * Opens Home Page entering url into the address field.
      */
     public void open(String url) {
-   //     LOGGER.info("Opening URL: " + url);
+        LOGGER.info("Opening URL: " + url);
         driver.get(url);
         driver.manage().window().maximize();
     }
@@ -106,7 +105,7 @@ public class BasePage {
      */
     public void clickOnElement(By locator, String elementName) {
         assertPresenceAndDisplay(locator, elementName);
-        //  LOGGER.info("Clicking on: " + elementName);
+        LOGGER.info("Clicking on: " + elementName);
         driver.findElement(locator).click();
     }
 
