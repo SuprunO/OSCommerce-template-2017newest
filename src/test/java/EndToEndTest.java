@@ -10,13 +10,14 @@ import org.testng.annotations.*;
 import sitePages.*;
 import technical.ExtentManager;
 import technical.User;
+import technical.Utility;
 
 import java.io.File;
 
 /**
  * Created by alex on 21.02.2017.
  */
-public class EndToEndTest extends ExtentManager{
+public class EndToEndTest extends ExtentManager {
     ChromeDriver driver;
     ProductPage productPage;
     User userData;
@@ -65,13 +66,13 @@ public class EndToEndTest extends ExtentManager{
     @DataProvider(name = "url-data-provider")
     public Object[][] urlDataProvider() {
         return new Object[][]{
-                {"http://bestwatchesweb.com"},
-                {"http://weddingstuffhub.com"},
-               //  {"yourgiftshome.com"},
+            //    {"http://bestwatchesweb.com"},
+             //    {"http://weddingstuffhub.com"},
+                  {"http://yourgiftshome.com"},
                 // {"http://coolfootwearmart.com"},
                 // {"http://adgetsstar.com"},
                 // {"http://yourgreatbag.com"},
-               //  {"http://weddingstorelab.com"},
+                //  {"http://weddingstorelab.com"},
                 // {"http://yoursupremegifts.com"},
                 // {"http://bestaccessoriesnow.com"},
                 // {"http://gadgetsstar.com"},
@@ -87,9 +88,9 @@ public class EndToEndTest extends ExtentManager{
         homePage.threadSleep(10000);
 
         if (homePage.isElementPresent(HomePage.ProductSite1) == true) {
-            homePage.clickOnElement(HomePage.ProductSite1, "Click on Product Site 1");
+            homePage.clickOnElement(HomePage.ProductSite1, "Product Site 1");
         } else if (homePage.isElementPresent(HomePage.ProductSite2) == true) {
-            homePage.clickOnElement(HomePage.ProductSite2, "Click on Product Site 2");
+            homePage.clickOnElement(HomePage.ProductSite2, "Product Site 2");
         }
 
         productPage.threadSleep(5000);
@@ -166,23 +167,27 @@ public class EndToEndTest extends ExtentManager{
     }
 
     @AfterMethod
- public void getResult(ITestResult result) {
-        if (result.getStatus()==ITestResult.FAILURE){
-            extentTest.log(LogStatus.FAIL,result.getThrowable());
+    public void getResult(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            String screenshot_path = Utility.captureScreenshot(driver, result.getName());
+            extentTest.log(LogStatus.FAIL, result.getThrowable());
+            extentTest.log(LogStatus.FAIL, "Snapshot below: " + extentTest.addScreenCapture(screenshot_path));
+        } else {
             if (result.getStatus() == ITestResult.SKIP) {
                 extentTest.log(LogStatus.SKIP, "Test skipped " + result.getThrowable());
             } else {
                 extentTest.log(LogStatus.PASS, "Test passed");
             }
-            extentReport.endTest(extentTest);
-            extentReport.flush();
         }
 
+        extentReports.endTest(extentTest);
+        extentReports.flush();
     }
+
     @AfterClass
 
     public void cleanUp() {
-
+        extentReport.flush();
         try {
             driver.close();
             driver.quit();
