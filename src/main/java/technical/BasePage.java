@@ -1,6 +1,7 @@
 package technical;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,8 +19,17 @@ import static org.testng.Assert.assertTrue;
  */
 public class BasePage {
 
-    //INPUT THE SITE NAME TO CHECK HERE:
-    public static String SiteURL = "http://" + "weddingdev.com";
+    public static String SiteURL_1 = "http://bestwatchesweb.com";
+    public static String SiteURL_2 = "http://weddingstuffhub.com";
+    public static String SiteURL_3 = "http://yourgiftshome.com";
+    public static String SiteURL_4 = "http://coolfootwearmart.com";
+    public static String SiteURL_5 = "http://gadgetsstar.com";
+    public static String SiteURL_6 = "http://yourgreatbag.com";
+    public static String SiteURL_7 = "http://coolfootwearmart.com";
+    public static String SiteURL_8 = "http://yourgreatbag.com";
+    public static String SiteURL_9 = "http://weddingstorelab.com";
+    public static String SiteURL_10 = "http://yoursupremegifts.com";
+
     //-------------------------------------------------------------
     public WebDriver driver;
 
@@ -129,13 +139,13 @@ public class BasePage {
     /**
      * Models a condition that might reasonably be expected to eventually evaluate to something that is neither null nor false.
      *
-     * @param sec     the length of time to sleep in milliseconds
+     * @param timeout     the length of time to sleep in milliseconds
      * @param locator "By" class locator to search input field.
      */
 
 
-    public void waitElementToBeClickable(int sec, By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, sec);
+    public void waitElementToBeClickable(By locator,int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
@@ -151,6 +161,15 @@ public class BasePage {
       //  LOGGER.info("Selecting: \"" + value + "\" in the : " + elementName);
         Select dropDown = new Select(driver.findElement(locator));
         dropDown.selectByVisibleText(value);
+    }
+
+
+
+    public void waitAndClickByJS(By locator,String ElementName) {
+
+        WebElement element = driver.findElement(locator);
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
     }
 
 

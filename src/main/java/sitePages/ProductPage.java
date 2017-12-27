@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import technical.BasePage;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Created by alex on 21.02.2017.
@@ -16,13 +17,14 @@ import java.util.ArrayList;
 
 
 public class ProductPage extends BasePage {
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
 
     public Layout getLayout() {
         return new Layout(driver);
 
     }
 
- //   private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
+    //   private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProductPage.class);
 
 
     public static final By SELECT_COLOR = By.cssSelector("#product>div:nth-of-type(1)>select");
@@ -30,9 +32,8 @@ public class ProductPage extends BasePage {
     public static final By SELECT_SIZE = By.cssSelector("#product>div:nth-of-type(2)>select");
     public static final By SELECT_SIZE_VALUE = By.cssSelector("#product>div:nth-of-type(2)>select>option:last-child");
     public static final By ADDTOCARTBUTTON = By.cssSelector(".buttonAction>[type=submit]");
-    public static final By CHOOSEQTYFIELD  = By.cssSelector("#input-quantity");
-    public static final By Link_to_shopping_cart = By.cssSelector(".alert-success>a:last-of-type");
-    public static final By Link_to_shopping_cart2 = By.cssSelector(".popup-button>#tdb2");
+    public static final By CHOOSEQTYFIELD = By.cssSelector("#input-quantity");
+    public static final By HOP_UP_CHECKOUT_BUTTON = By.cssSelector(".popup-button>a");
 
 
 
@@ -40,26 +41,35 @@ public class ProductPage extends BasePage {
         super(driver);
     }
 
-    public WebElement getProductNameLocator(){
-       return driver.findElement(By.cssSelector("#content>h1"));
-    }
-
     public void chooseColor() {
-    //    LOGGER.info("Choose color");
-        Select select = new Select(driver.findElement(SELECT_COLOR));
-        select.selectByIndex(1);
+        try {
+            LOGGER.info("Choose color");
+            Select select = new Select(driver.findElement(SELECT_COLOR));
+            select.selectByIndex(1);
+
+        } catch (Exception e) {
+            Logger.getLogger("Skip this step");
+        }
     }
 
     public void chooseSize() {
-  //      LOGGER.info("Choose size");
-        Select select = new Select(driver.findElement(SELECT_SIZE));
-        select.selectByIndex(3);
+              LOGGER.info("Choose size");
+        try {
+            Select select = new Select(driver.findElement(SELECT_SIZE));
+            select.selectByIndex(3);
+        }catch (Exception e) {
+            Logger.getLogger("Skip this step");
+        }
     }
 
     public void inputProductsQuantity() {
-     //   LOGGER.info("Input quantity of products");
-        driver.findElement(CHOOSEQTYFIELD).clear();
-        driver.findElement(CHOOSEQTYFIELD).sendKeys("1");
+        //   LOGGER.info("Input quantity of products");
+        try {
+            driver.findElement(CHOOSEQTYFIELD).clear();
+            driver.findElement(CHOOSEQTYFIELD).sendKeys("1");
+        }catch (Exception e) {
+            Logger.getLogger("Skip this step");
+        }
     }
 
     public String sizeDropdownExpectedOptions() {

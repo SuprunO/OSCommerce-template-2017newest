@@ -17,8 +17,8 @@ public class CheckoutPage extends BasePage {
 
     //Locators
     public static final By LOGIN_PAGE_CONTINUE_BUTTON = By.cssSelector(".box>div:last-child>a");
-    public static final By SHIPPING_PAGE_CONTINUE_BUTTON = By.cssSelector("#tdb5");
-    public static final By SHIPPING_PAGE_CONTINUE_BUTTON2 = By.cssSelector("#tdb4");
+    public static final By SHIPPING_PAGE_CONTINUE_BUTTON_SITE_1 = By.cssSelector("#tdb5");
+    public static final By SHIPPING_PAGE_CONTINUE_BUTTON_SITE_2 = By.cssSelector("#tdb4");
     public static final By FIRST_NAME = By.cssSelector("[name=firstname]");
     public static final By LAST_NAME = By.cssSelector("[name=lastname]");
     public static final By DOB  = By.cssSelector("[name=dob]");

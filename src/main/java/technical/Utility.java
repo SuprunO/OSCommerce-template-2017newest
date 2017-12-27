@@ -15,7 +15,7 @@ public class Utility {
         try {
             TakesScreenshot ts=(TakesScreenshot)driver;
             File source=ts.getScreenshotAs(OutputType.FILE);
-            String dest = "C:\\Users\\user\\IdeaProjects\\OSCommerce-template-2017new\\target\\screenshots\\" + screenshotName + ".png";
+            String dest = "C:\\Users\\user\\IdeaProjects\\OSCommerce-Template-2017new\\test-output\\" + screenshotName + ".png";
             File destination = new File(dest);
             FileUtils.copyFile(source,destination);
 

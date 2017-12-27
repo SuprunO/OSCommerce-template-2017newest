@@ -9,6 +9,6 @@ public class OrderConfirmation extends BasePage {
         super(driver);
     }
 
-    public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON =By.cssSelector("#tdb5");
-    public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON2 =By.cssSelector("#tdb4");
+    public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON_SITE_1 =By.cssSelector("#tdb5");
+    public static final By ORDER_CONFIRMATION_CONFIRM_ORDER_BUTTON_SITE_2 =By.cssSelector("#tdb4");
 }
